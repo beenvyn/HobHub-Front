@@ -241,7 +241,6 @@ const ChatbotPage = () => {
     }) => {
         try {
             const res = await http.get(`/webhook`);
-            console.log('webhook', res.data);
 
             // 사용자 id 받아오기
             getUserId({ userDetail });
@@ -271,19 +270,6 @@ const ChatbotPage = () => {
 
                 setUserDetail(userDetail);
                 setIsUserInfo({ available: false });
-
-                // 추천 취미 저장
-                setRecommend({
-                    hobby1: '케이크',
-                    category1: '베이킹',
-                    similarity1: 86,
-                    hobby2: '터프팅',
-                    category2: '공예',
-                    similarity2: 75,
-                    hobby3: '요가',
-                    category3: '피트니스',
-                    similarity3: 64,
-                });
             } else {
                 // 기존의 취미가 없는 경우
                 const userDetail = {
@@ -296,35 +282,22 @@ const ChatbotPage = () => {
                     weekend: res.data.user_inputs.weekend,
                 };
 
-                // 추천 취미 저장
-                setRecommend({
-                    hobby1: hobbyArr[0],
-                    category1: categoryArr[0],
-                    similarity1: 0,
-                    hobby2: hobbyArr[1],
-                    category2: categoryArr[1],
-                    similarity2: 0,
-                    hobby3: hobbyArr[2],
-                    category3: categoryArr[2],
-                    similarity3: 0,
-                });
-
                 setUserDetail(userDetail);
                 setIsUserInfo({ available: true });
             }
 
             // 추천 취미 저장
-            // setRecommend({
-            //     hobby1: hobbyArr[0],
-            //     category1: categoryArr[0],
-            //     similarity1: 86,
-            //     hobby2: hobbyArr[1],
-            //     category2: categoryArr[1],
-            //     similarity2: 75,
-            //     hobby3: hobbyArr[2],
-            //     category3: categoryArr[2],
-            //     similarity3: 62,
-            // });
+            setRecommend({
+                hobby1: hobbyArr[0],
+                category1: categoryArr[0],
+                similarity1: 86,
+                hobby2: hobbyArr[1],
+                category2: categoryArr[1],
+                similarity2: 75,
+                hobby3: hobbyArr[2],
+                category3: categoryArr[2],
+                similarity3: 62,
+            });
         } catch (error) {
             console.log(error);
         }
@@ -346,7 +319,6 @@ const ChatbotPage = () => {
         // 사용자 정보 post api
         saveUserInfo({ userInfo }).then((res) => {
             setUserId({ id: res?.data.id });
-            console.log('id', userId);
         });
     };
 
@@ -392,7 +364,6 @@ const ChatbotPage = () => {
         // 선택 취미 리스트 post api
         try {
             const res = await http.post(`/hobbylist`, { selectedHobby });
-            console.log(res);
         } catch (error) {
             console.log(error);
         }
